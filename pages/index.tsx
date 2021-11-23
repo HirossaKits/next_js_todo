@@ -6,6 +6,7 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { todoState, filterState } from "../components/atom";
 import Filter from "../components/Filter";
 import { TODO } from "../components/types";
+import Todo from "../components/Todo";
 
 const Home: NextPage = () => {
   const [todos, setTodos] = useRecoilState(todoState);
@@ -34,10 +35,7 @@ const Home: NextPage = () => {
 
         <ul>
           {filterTodo(todos).map((todo) => (
-            <li key={todo.id}>
-              <span>{todo.title}</span>
-              <select></select>
-            </li>
+            <Todo key={todo.id} todo={todo} />
           ))}
         </ul>
 
