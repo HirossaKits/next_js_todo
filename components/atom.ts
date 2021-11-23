@@ -1,20 +1,20 @@
 import { atom } from "recoil";
-import { TODO } from "./types";
+import { TODO, STATUS, SORT_KEY } from "./types";
 
 const todoDemo: TODO[] = [
   {
     id: "1",
-    title: "掃除",
+    title: "A掃除",
     status: "notStarted",
   },
   {
     id: "2",
-    title: "洗濯",
+    title: "B洗濯",
     status: "inProgress",
   },
   {
     id: "3",
-    title: "料理",
+    title: "C料理",
     status: "done",
   },
 ];
@@ -26,7 +26,13 @@ export const todoState = atom<TODO[]>({
 });
 
 // filter
-export const filterState = atom<string>({
+export const filterState = atom<STATUS>({
   key: "filter",
   default: "all"
+});
+
+// sort
+export const sortState = atom<SORT_KEY>({
+  key: "sort",
+  default: "id"
 });

@@ -5,3 +5,5 @@ export interface TODO {
   title: string;
   status: STATUS;
 }
+
+export type SORT_KEY = keyof TODO;

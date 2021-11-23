@@ -3,19 +3,36 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { todoState, filterState } from "../components/atom";
+import { todoState, filterState, sortState } from "../components/atom";
 import Filter from "../components/Filter";
+import Sort from "../components/Sort";
 import { TODO } from "../components/types";
 import Todo from "../components/Todo";
 
 const Home: NextPage = () => {
   const [todos, setTodos] = useRecoilState(todoState);
-  const filter = useRecoilValue(filterState);
+  const filterStatus = useRecoilValue(filterState);
+  const sortKey = useRecoilValue(sortState);
 
   const filterTodo = (tds: TODO[]): TODO[] => {
-    if (filter === "all") return tds;
-    const filtered = tds.filter((td) => td.status === filter);
+    if (filterStatus === "all") return tds;
+    const filtered = tds.filter((td) => td.status === filterStatus);
     return filtered;
+  };
+
+  const sortTodo = (tds: TODO[]): TODO[] => {
+    const sorted = [...tds];
+    sorted.sort((a, b) => {
+      if (a[sortKey] > b[sortKey]) {
+        return -1;
+      }
+      if (a[sortKey] < b[sortKey]) {
+        return 1;
+      }
+      return 0;
+    });
+    console.log(sorted);
+    return sorted;
   };
 
   return (
@@ -33,8 +50,11 @@ const Home: NextPage = () => {
         <span>フィルター</span>
         <Filter />
 
+        <span>ソート</span>
+        <Sort />
+
         <ul>
-          {filterTodo(todos).map((todo) => (
+          {sortTodo(filterTodo(todos)).map((todo) => (
             <Todo key={todo.id} todo={todo} />
           ))}
         </ul>
