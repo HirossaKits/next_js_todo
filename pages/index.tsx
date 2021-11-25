@@ -1,18 +1,49 @@
+import React, { useState } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { todoState, filterState, sortState } from "../components/atom";
+import {
+  todoState,
+  editingState,
+  filterState,
+  sortState,
+} from "../components/atom";
 import Filter from "../components/Filter";
 import Sort from "../components/Sort";
 import { TODO } from "../components/types";
 import Todo from "../components/Todo";
+import EditForm from "../components/EditForm";
 
 const Home: NextPage = () => {
+  const [openEdit, setOpenEdit] = useState(false);
   const [todos, setTodos] = useRecoilState(todoState);
+  const [editing, setEditing] = useRecoilState(editingState);
   const filterStatus = useRecoilValue(filterState);
   const sortKey = useRecoilValue(sortState);
+
+  const handleRegisterClick = () => {
+    setOpenEdit(true);
+    const newId: number = Math.max(...todos.map((todo) => todo.id)) + 1;
+    setEditing({
+      id: newId,
+      title: "",
+      status: "notStarted",
+    });
+  };
+
+  const editClickHandler = (id: number) => {
+    setOpenEdit(true);
+    const selected = todos.find((todo) => todo.id === id);
+    if (selected) {
+      setEditing(selected);
+    }
+  };
+
+  const deleteClickHandler = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
 
   const filterTodo = (tds: TODO[]): TODO[] => {
     if (filterStatus === "all") return tds;
@@ -31,7 +62,6 @@ const Home: NextPage = () => {
       }
       return 0;
     });
-    console.log(sorted);
     return sorted;
   };
 
@@ -47,6 +77,10 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>To-Do-List</h1>
         <code className={styles.code}>pages/index.tsx</code>
 
+        <button onClick={handleRegisterClick}>新規登録</button>
+
+        {openEdit && <EditForm setOpenEdit={setOpenEdit} mode='edit' />}
+
         <span>フィルター</span>
         <Filter />
 
@@ -55,54 +89,21 @@ const Home: NextPage = () => {
 
         <ul>
           {sortTodo(filterTodo(todos)).map((todo) => (
-            <Todo key={todo.id} todo={todo} />
+            <Todo
+              key={todo.id}
+              todo={todo}
+              editClickHandler={editClickHandler}
+              deleteClickHandler={deleteClickHandler}
+            />
           ))}
         </ul>
-
-        <p className={styles.description}>Get started by editing </p>
-
-        <div className={styles.grid}>
-          <a href='https://nextjs.org/docs' className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href='https://nextjs.org/learn' className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href='https://github.com/vercel/next.js/tree/master/examples'
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href='https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
-          </span>
-        </a>
+        Powered by{" "}
+        <span className={styles.logo}>
+          <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
+        </span>
       </footer>
     </div>
   );
