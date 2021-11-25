@@ -15,6 +15,7 @@ import Sort from "../components/Sort";
 import { TODO } from "../components/types";
 import Todo from "../components/Todo";
 import EditForm from "../components/EditForm";
+import { Flex } from "@chakra-ui/react";
 
 const Home: NextPage = () => {
   const [openEdit, setOpenEdit] = useState(false);
