@@ -13,15 +13,11 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import Layout from "../components/Layout";
 
 const Signin = () => {
   return (
-    <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
+    <Layout>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"3xl"} color={"gray.600"}>
@@ -33,7 +29,7 @@ const Signin = () => {
           bg={useColorModeValue("white", "gray.700")}
           boxShadow={"lg"}
           p={8}
-          maxW={"sm"}
+          width={"sm"}
         >
           <Stack spacing={4}>
             <FormControl id='email'>
@@ -73,7 +69,7 @@ const Signin = () => {
           </Stack>
         </Box>
       </Stack>
-    </Flex>
+    </Layout>
   );
 };
 
