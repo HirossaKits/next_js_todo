@@ -1,4 +1,5 @@
 import React from "react";
+import { signIn, signOut, useSession } from "next-auth/client";
 import {
   Flex,
   Box,
@@ -11,11 +12,15 @@ import {
   Button,
   Heading,
   Text,
+  Center,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub, FaFacebook } from "react-icons/fa";
 import Layout from "../components/Layout";
 
 const Signin = () => {
+  const [session, loading] = useSession();
   return (
     <Layout>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
@@ -60,6 +65,30 @@ const Signin = () => {
               >
                 ログイン
               </Button>
+              <Button
+                w={"full"}
+                variant={"outline"}
+                leftIcon={<FcGoogle />}
+                onClick={() => signIn("google")}
+              >
+                <Center>
+                  <Text>Google アカウントでログイン</Text>
+                </Center>
+              </Button>
+              <Button w={"full"} variant={"outline"} leftIcon={<FaGithub />}>
+                <Center>
+                  <Text>Github アカウントでログイン</Text>
+                </Center>
+              </Button>
+              {/* <Button
+                w={"full"}
+                colorScheme={"facebook"}
+                leftIcon={<FaFacebook />}
+              >
+                <Center>
+                  <Text>Facebook アカウントでログイン</Text>
+                </Center>
+              </Button> */}
               <Box width={"full"} textAlign={"center"}>
                 <Link href={"./signup"} color={"blue.400"}>
                   <a>アカウントを作成</a>
