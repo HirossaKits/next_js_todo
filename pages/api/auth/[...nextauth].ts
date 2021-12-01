@@ -47,5 +47,8 @@ export default NextAuth({
       session.accessToken = token.accessToken;
       return session;
     }
+  },
+  pages: {
+    signIn: '/signin'
   }
 });

@@ -75,7 +75,12 @@ const Signin = () => {
                   <Text>Google アカウントでログイン</Text>
                 </Center>
               </Button>
-              <Button w={"full"} variant={"outline"} leftIcon={<FaGithub />}>
+              <Button
+                w={"full"}
+                variant={"outline"}
+                leftIcon={<FaGithub />}
+                onClick={() => signIn("github")}
+              >
                 <Center>
                   <Text>Github アカウントでログイン</Text>
                 </Center>

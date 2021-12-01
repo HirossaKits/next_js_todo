@@ -12,7 +12,12 @@ import {
 } from "@chakra-ui/react";
 import Nav from "./Nav";
 
-const Layout = ({ children, title = "Simple To Do" }) => {
+type Props = {
+  children: React.ReactNode;
+  title?: string;
+};
+
+const Layout: React.FC<Props> = ({ children, title = "Simple To Do" }) => {
   return (
     <div className={styles.container}>
       <Head>
