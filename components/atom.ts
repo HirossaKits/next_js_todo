@@ -1,21 +1,25 @@
 import { atom } from "recoil";
-import { TODO, STATUS_KEY, SORT_KEY } from "./types";
+import { TODO, SORT_KEY } from "./types";
+
 
 const todoDemo: TODO[] = [
   {
-    id: 1,
+    id: "1",
     title: "A掃除",
-    status: "notStarted",
+    isDone: false,
+    deadline: "2021-12-19",
   },
   {
-    id: 2,
+    id: "2",
     title: "B洗濯",
-    status: "inProgress",
+    isDone: false,
+    deadline: "2021-12-20",
   },
   {
-    id: 3,
+    id: "3",
     title: "C料理",
-    status: "done",
+    isDone: true,
+    deadline: "2021-12-04",
   },
 ];
 
@@ -26,17 +30,17 @@ export const todoState = atom<TODO[]>({
 });
 
 // editing
-export const editingState = atom<TODO>({
-  key: "editing",
-  default: {
-    id: 0,
-    title: "",
-    status: "notStarted"
-  }
-});
+// export const editingState = atom<TODO>({
+//   key: "editing",
+//   default: {
+//     id: :0",
+//     title: "",
+//     status: "notStarted"
+//   }
+// });
 
 // filter
-export const filterState = atom<STATUS_KEY>({
+export const filterState = atom({
   key: "filter",
   default: "all"
 });
