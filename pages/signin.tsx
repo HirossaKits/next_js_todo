@@ -18,10 +18,15 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub, FaFacebook } from "react-icons/fa";
 import Layout from "../components/Layout";
-import { googleLogin } from "../firebase";
+
+const handlesignin =  
 
 const Signin = () => {
   // const [session, loading] = useSession();
+
+  // const handlesignin =  
+
+
   return (
     <Layout>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
