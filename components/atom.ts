@@ -30,14 +30,15 @@ export const todoState = atom<TODO[]>({
 });
 
 // editing
-// export const editingState = atom<TODO>({
-//   key: "editing",
-//   default: {
-//     id: :0",
-//     title: "",
-//     status: "notStarted"
-//   }
-// });
+export const editingState = atom<TODO>({
+  key: "editing",
+  default: {
+    id: "",
+    title: "",
+    isDone: false,
+    deadline: "",
+  }
+});
 
 // filter
 export const filterState = atom({
