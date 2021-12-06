@@ -60,7 +60,7 @@ const Todos = () => {
                   id: "1",
                   title: "Hello world",
                   isDone: false,
-                  deadline: new Date(),
+                  deadline: "2021-09-21",
                 }}
                 editClickHandler={() => {}}
                 deleteClickHandler={() => {}}
