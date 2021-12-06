@@ -23,6 +23,8 @@ const todoDemo: TODO[] = [
   },
 ];
 
+// status
+
 // todo
 export const todoState = atom<TODO[]>({
   key: "todo",

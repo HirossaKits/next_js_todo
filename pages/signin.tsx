@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 // import { signIn, signOut, useSession } from "next-auth/client";
 import {
   Flex,
@@ -14,33 +14,30 @@ import {
   Text,
   Center,
   useColorModeValue,
-} from "@chakra-ui/react";
-import { FcGoogle } from "react-icons/fc";
-import { FaGithub, FaFacebook } from "react-icons/fa";
-import Layout from "../components/Layout";
-
-const handlesignin =  
+} from '@chakra-ui/react';
+import { FcGoogle } from 'react-icons/fc';
+import { FaGithub, FaFacebook } from 'react-icons/fa';
+import Layout from '../components/Layout';
 
 const Signin = () => {
   // const [session, loading] = useSession();
 
-  // const handlesignin =  
-
+  // const handlesignin =
 
   return (
     <Layout>
-      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
-        <Stack align={"center"}>
-          <Heading fontSize={"3xl"} color={"gray.600"}>
+      <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+        <Stack align={'center'}>
+          <Heading fontSize={'3xl'} color={'gray.600'}>
             ログイン
           </Heading>
         </Stack>
         <Box
-          rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
+          rounded={'lg'}
+          bg={useColorModeValue('white', 'gray.700')}
+          boxShadow={'lg'}
           p={8}
-          width={"sm"}
+          width={'sm'}
         >
           <Stack spacing={4}>
             <FormControl id='email'>
@@ -53,38 +50,38 @@ const Signin = () => {
             </FormControl>
             <Stack spacing={4}>
               <Stack
-                direction={{ base: "column", sm: "column" }}
-                align={"start"}
-                justify={"space-between"}
+                direction={{ base: 'column', sm: 'column' }}
+                align={'start'}
+                justify={'space-between'}
                 mt={2}
                 mb={2}
               >
                 <Checkbox>ログイン状態を保持する</Checkbox>
-                <Link color={"blue.400"}>パスワードを忘れた場合</Link>
+                <Link color={'blue.400'}>パスワードを忘れた場合</Link>
               </Stack>
               <Button
-                bg={"blue.400"}
-                color={"white"}
+                bg={'blue.400'}
+                color={'white'}
                 _hover={{
-                  bg: "blue.500",
+                  bg: 'blue.500',
                 }}
               >
                 ログイン
               </Button>
               <Button
-                w={"full"}
-                variant={"outline"}
+                w={'full'}
+                variant={'outline'}
                 leftIcon={<FcGoogle />}
                 // onClick={() => signIn("google")}
-                onClick={googleLogin}
+                // onClick={googleLogin}
               >
                 <Center>
                   <Text>Google アカウントでログイン</Text>
                 </Center>
               </Button>
               <Button
-                w={"full"}
-                variant={"outline"}
+                w={'full'}
+                variant={'outline'}
                 leftIcon={<FaGithub />}
                 // onClick={() => signIn("github")}
               >
@@ -92,8 +89,8 @@ const Signin = () => {
                   <Text>Github アカウントでログイン</Text>
                 </Center>
               </Button>
-              <Box width={"full"} textAlign={"center"}>
-                <Link href={"./signup"} color={"blue.400"}>
+              <Box width={'full'} textAlign={'center'}>
+                <Link href={'./signup'} color={'blue.400'}>
                   <a>アカウントを作成</a>
                 </Link>
               </Box>
