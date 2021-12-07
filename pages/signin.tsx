@@ -16,13 +16,19 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { FcGoogle } from 'react-icons/fc';
-import { FaGithub, FaFacebook } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 import Layout from '../components/Layout';
+import Loading from '../components/Loading';
+import { signInWithGoogle, signInWithGitHub } from '../firebase';
+import { useAuthState } from '../hooks/useAuthState';
 
 const Signin = () => {
-  // const [session, loading] = useSession();
+  const [user, loading] = useAuthState();
+  const backgroundColor = useColorModeValue('white', 'gray.700');
 
-  // const handlesignin =
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Layout>
@@ -34,7 +40,7 @@ const Signin = () => {
         </Stack>
         <Box
           rounded={'lg'}
-          bg={useColorModeValue('white', 'gray.700')}
+          bg={backgroundColor}
           boxShadow={'lg'}
           p={8}
           width={'sm'}
@@ -72,8 +78,7 @@ const Signin = () => {
                 w={'full'}
                 variant={'outline'}
                 leftIcon={<FcGoogle />}
-                // onClick={() => signIn("google")}
-                // onClick={googleLogin}
+                onClick={signInWithGoogle}
               >
                 <Center>
                   <Text>Google アカウントでログイン</Text>
@@ -83,7 +88,7 @@ const Signin = () => {
                 w={'full'}
                 variant={'outline'}
                 leftIcon={<FaGithub />}
-                // onClick={() => signIn("github")}
+                onClick={signInWithGitHub}
               >
                 <Center>
                   <Text>Github アカウントでログイン</Text>

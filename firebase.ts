@@ -1,6 +1,6 @@
 
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, GithubAuthProvider, signInWithRedirect, signOut } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
@@ -16,25 +16,40 @@ export const firebaseApp = initializeApp({
 export const firebaseAuth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
 export const storage = getStorage(firebaseApp);
-export const provider = new GoogleAuthProvider();
+export const providerGoogle = new GoogleAuthProvider();
+export const providerGitHub = new GithubAuthProvider();
 
-// provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+export const signInWithGoogle = () => {
+  signInWithRedirect(firebaseAuth, providerGoogle)
+    .then((result) => {
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      console.log(credential);
+    })
+    .catch((error) => {
+      console.log(error.Code);
+    });
+};;
 
-// auth.languageCode = 'ja';
-// export const googleLogin = async () => {
-//   await signInWithPopup(auth, provider)
-//     .then((result) => {
-//       console.log('google resolved');
-//       const credential = GoogleAuthProvider.credentialFromResult(result);
-//       const token = credential?.accessToken;
-//       const user = result.user;
-//       const additional = getAdditionalUserInfo(result);
-//       console.log("credential", credential);
-//       console.log("additional", additional);
-//     })
-//     .catch((e: any) => {
-//       alert(e.message);
-//     });
-// };
+export const signInWithGitHub = () => {
+  const gitProvider = new GithubAuthProvider();
+  signInWithRedirect(firebaseAuth, providerGitHub)
+    .then((result) => {
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const token = credential?.accessToken;
+      console.log(credential);
+    })
+    .catch((error) => {
+      console.log(error.Code);
+    });
+};
 
+
+export const signOutFromAll = () => {
+  signOut(firebaseAuth).then(() => {
+    // Sign-out successful.
+  }).catch((error) => {
+    console.log(error.Code);
+  });
+};
 
