@@ -1,18 +1,21 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { userState } from '../atom/authAtom';
 import { onAuthStateChanged, User } from '@firebase/auth';
 import { firebaseAuth } from '../firebase';
+import { userInfo } from 'os';
 
-export const useAuthState = (): [User | null, boolean] => {
+export const useAuthState = (): [boolean, Dispatch<SetStateAction<boolean>>] => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<User | null>(null);
+  const setUser = useSetRecoilState<User | null>(userState);
 
   useEffect(() => {
     const unsbuscribe = onAuthStateChanged(firebaseAuth, (user) => {
       setLoading(false);
-      setUser(user);
+      setUser(JSON.parse(JSON.stringify(user)));
     });
     return unsbuscribe;
   }, [firebaseAuth]);
 
-  return [user, loading];
+  return [loading, setLoading];
 };

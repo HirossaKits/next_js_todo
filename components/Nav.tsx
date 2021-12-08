@@ -21,10 +21,18 @@ import {
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { MdLogout } from 'react-icons/md';
 import { signOutFromAll } from '../firebase';
+import { useRouter } from 'next/router';
 
 export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
+  const handleSingOutClick = () => {
+    signOutFromAll();
+    router.push('/signin');
+  };
+
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -41,7 +49,7 @@ export default function Nav() {
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
               <Button>
-                <Icon as={MdLogout} w={5} h={5} onClick={signOutFromAll} />
+                <Icon as={MdLogout} w={5} h={5} onClick={handleSingOutClick} />
               </Button>
               {/* <Menu>
                 <MenuButton
